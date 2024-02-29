@@ -1,43 +1,76 @@
-from pyats.easypy import run
-import os
-import pandas as pd 
-import smtplib
-
-def main():
-    def run_testfiles(l):
-        for i in l:
-            print("Running {}".format(i))
-            import pdb;pdb.set_trace()
-            result = run(i, datafile = 'acl_datafile.yaml', pdb=True)
-            import pdb;pdb.set_trace()
-            df = pd.DataFrame(result, index = [0])
-            with pd.ExcelWriter('Testcase_output.xlsx',mode='a') as writer:  
-                df.to_excel(writer, sheet_name='TestSuiteOutput')
-            
-    l = ['test_case1.py', 'test_case2.py', 'test_case3.py', 'test_case4.py']
-    run_testfiles(l)
-    '''
-    sender_email = 'xyz@tcs.com'
-    app_pwd = 'sdsfsdfhgsdhfgjf' #16 character app password which we need to generate in our browser
-    receiver_email = 'abcd@tcs.com'
-    subject = "testcase status"
-    message_text = 'All testcases ran succuessfully.'
-    try:
-        #connect to SMTP server.
-        server = smtplib.SMTP('smtp.office365.com', 587)
-        server.startls()
-        
-        #log in with mail and app password.
-        server.sendmail(sender_email, app_pwd)
+package otg
  
-        #Create and send the email
-        message = f"Subject: {subject} \n\n{message_text}"
-        server.sendmail(sender_email, receiver_email, message)
-     
-        print("Email sent successfully!")
-        server.quit()
-
-    except Exception as e:
-        print("An error occurred:", str(e))
-    '''     
+import (
+"fmt"
+"os/exec"
+"testing"
+"time"
  
+"github.com/tealeg/xlsx"
+)
+ 
+func TestConnectToRouter13(t *testing.T) {
+const (
+sourceIP = "10.133.35.158"
+destinationIP = "10.133.35.143"
+duration      = 10 * time.Second
+)
+ 
+// Create a new Excel file
+file := xlsx.NewFile()
+sheet, err := file.AddSheet("Nping Output")
+if err != nil {
+t.Fatalf("Error creating Excel sheet: %v", err)
+}
+ 
+// Construct nping command
+command := fmt.Sprintf("sudo nping --udp -c 10 --rate 10 %s %s", sourceIP, destinationIP)
+ 
+// Execute nping command
+cmd := exec.Command("sh", "-c", command)
+ 
+output, err := cmd.CombinedOutput()
+if err != nil {
+t.Fatalf("Error starting nping command: %v. Output: %s", err, output)
+}
+
+t.Logf("nping output: %s", string(output))
+ 
+// Log output to Excel sheet
+row := sheet.AddRow()
+cell := row.AddCell()
+cell.Value = "Nping Output"
+row = sheet.AddRow()
+cell = row.AddCell()
+cell.Value = string(output)
+
+// Save Excel file to a specific directory
+filePath := "/home/tcs/sample/ondatra/otg/nping_output.xlsx"
+err = file.Save(filePath)
+if err != nil {
+    t.Fatalf("Error saving Excel file: %v", err)
+}
+ 
+// Wait for the specified duration
+time.Sleep(duration)
+ 
+// Check if the process has already finished
+if cmd.ProcessState != nil && cmd.ProcessState.Exited() {
+t.Log("nping process has already finished.")
+return
+}
+ 
+// Stop nping command
+err = cmd.Process.Kill()
+if err != nil {
+t.Fatalf("Error stopping nping command: %v", err)
+}
+ 
+t.Log("nping traffic generation completed.")
+ 
+// Save Excel file
+err = file.Save("nping_output.xlsx")
+if err != nil {
+t.Fatalf("Error saving Excel file: %v", err)
+}
+}
