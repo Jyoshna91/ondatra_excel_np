@@ -1,0 +1,18 @@
+from pyats.easypy import run
+import os
+import pandas as pd 
+import smtplib
+
+def main():
+    def run_testfiles(l):
+        for i in l:
+            print("Running {}".format(i))
+            import pdb;pdb.set_trace()
+            result = run(i, datafile = 'acl_datafile.yaml', pdb=True)
+            import pdb;pdb.set_trace()
+            df = pd.DataFrame(result, index = [0])
+            with pd.ExcelWriter('Testcase_output.xlsx',mode='a') as writer:  
+                df.to_excel(writer, sheet_name='TestSuiteOutput')
+            
+    l = ['test_case1.py', 'test_case2.py', 'test_case3.py', 'test_case4.py']
+    run_testfiles(l)
