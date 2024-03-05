@@ -1,61 +1,108 @@
-# Static B2B LAG
-
-## Overview
-In this lab two Ixia-c Traffic Engines have a pairs of traffic ports each connected back-2-back in a Containerlab environment. The goal is to demonstrate how to create a static Link Aggregation Group (LAG) consisting of two ports and run traffic over the LAG interface.
-
-![Diagram](./diagram.drawio.svg)
-
-## Prerequisites
-
-* Linux host or VM with sudo permissions and Docker support
-* `git` - how to install depends on your Linux distro
-* [Docker](https://docs.docker.com/engine/install/)
-* [Containerlab](https://containerlab.dev/install/)
-
-## Clone the repository
-
-1. Clone this repository to the Linux host where you want to run the lab. Do this only once.
-
-    ```Shell
-    git clone --recurse-submodules https://github.com/open-traffic-generator/otg-examples.git
-    ```
-
-2. Navigate to the lab folder
-
-    ```Shell
-    cd otg-examples/clab/ixia-c-one-b2b-lag
-    ```
-
-## Install components
-
-1. Install `otgen`
-
-    ```Shell
-    bash -c "$(curl -sL https://get.otgcdn.net/otgen)" -- -v 0.6.2
-    ```
-
-## Deploy a lab
-
-```Shell
-sudo -E containerlab deploy -t topo.yml
-```
-
-## Run otgen tests
-
-1. Flow-based statistics over the LAG
-
-    ```Shell
-    otgen run --insecure --file otg.yaml --yaml --metrics flow | otgen transform --metrics flow | otgen display -m table
-    ```
-
-2. Individual port statistics showing packet distribution over the LAG members
-
-    ```Shell
-    otgen run --insecure --file otg.yaml --yaml --metrics port | otgen transform --metrics port | otgen display -m table
-    ```
-
-## Destroy the lab
-
-```Shell
-sudo -E containerlab destroy -t topo.yml
-```
+=== RUN   TestConnectToRouter18
+[sudo] password for tcs: 
+    nping8_test.go:90: Nping output: 
+        Starting Nping 0.7.80 ( https://nmap.org/nping ) at 2024-03-05 14:50 IST
+        SENT (0.0214s) UDP 10.133.35.149:53 > 10.133.35.158:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.0218s) ICMP [10.133.35.158 > 10.133.35.149 Port unreachable (type=3/code=3) ] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (0.1215s) UDP 10.133.35.149:53 > 10.133.35.158:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.1218s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (0.2215s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.2218s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (0.3216s) UDP 10.133.35.149:53 > 10.133.35.158:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.3218s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (0.4216s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.4219s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (0.5216s) UDP 10.133.35.149:53 > 10.133.35.158:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.5219s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (0.6216s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.6219s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (0.7217s) UDP 10.133.35.149:53 > 10.133.35.158:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.7219s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (0.8217s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.8220s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (0.9217s) UDP 10.133.35.149:53 > 10.133.35.158:40125 ttl=64 id=34235 iplen=28 
+        RCVD (0.9220s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.0218s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.0220s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.1222s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.1226s) ICMP [10.133.35.143 > 10.133.35.149 Port unreachable (type=3/code=3) ] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.2224s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.2226s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.3224s) UDP 10.133.35.149:53 > 10.133.35.158:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.3227s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.4224s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.4226s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.5224s) UDP 10.133.35.149:53 > 10.133.35.158:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.5227s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.6225s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.6227s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.7225s) UDP 10.133.35.149:53 > 10.133.35.158:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.7228s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.8225s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.8228s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34235 iplen=56 ]
+        SENT (1.9225s) UDP 10.133.35.149:53 > 10.133.35.143:40125 ttl=64 id=34235 iplen=28 
+        RCVD (1.9229s) ICMP [10.133.35.143 > 10.133.35.149 Port unreachable (type=3/code=3) ] IP [ttl=255 id=34235 iplen=56 ]
+         
+        Statistics for host 10.133.35.158:
+         |  Probes Sent: 10 | Rcvd: 10 | Lost: 0  (0.00%)
+         |_ Max rtt: 0.329ms | Min rtt: 0.202ms | Avg rtt: 0.251ms
+        Statistics for host 10.133.35.143:
+         |  Probes Sent: 10 | Rcvd: 10 | Lost: 0  (0.00%)
+         |_ Max rtt: 0.347ms | Min rtt: 0.257ms | Avg rtt: 0.294ms
+        Raw packets sent: 20 (560B) | Rcvd: 20 (1.120KB) | Lost: 0 (0.00%)
+        Nping done: 2 IP addresses pinged in 1.96 seconds
+    nping8_test.go:90: Nping output: 
+        Starting Nping 0.7.80 ( https://nmap.org/nping ) at 2024-03-05 14:50 IST
+        SENT (0.0150s) TCP 10.133.35.149:56061 > 10.133.35.158:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.0154s) TCP 10.133.35.158:80 > 10.133.35.149:56061 RA ttl=64 id=40559 iplen=40  seq=0 win=0 
+        SENT (0.1152s) TCP 10.133.35.149:56061 > 10.133.35.158:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.1156s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (0.2152s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.2154s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (0.3152s) TCP 10.133.35.149:56061 > 10.133.35.158:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.3155s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (0.4152s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.4155s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (0.5152s) TCP 10.133.35.149:56061 > 10.133.35.158:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.5155s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (0.6152s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.6154s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (0.7153s) TCP 10.133.35.149:56061 > 10.133.35.158:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.7156s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (0.8153s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.8156s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (0.9153s) TCP 10.133.35.149:56061 > 10.133.35.158:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (0.9156s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (1.0153s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.0156s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (1.1158s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.1161s) TCP 10.133.35.143:80 > 10.133.35.149:56061 RA ttl=64 id=42916 iplen=40  seq=0 win=0 
+        SENT (1.2159s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.2162s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (1.3159s) TCP 10.133.35.149:56061 > 10.133.35.158:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.3162s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (1.4159s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.4161s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (1.5159s) TCP 10.133.35.149:56061 > 10.133.35.158:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.5162s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (1.6159s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.6162s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (1.7160s) TCP 10.133.35.149:56061 > 10.133.35.158:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.7187s) ICMP [10.133.35.143 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.158] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (1.8160s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.8162s) ICMP [10.133.35.158 > 10.133.35.149 Host redirect (type=5/code=1) addr=10.133.35.143] IP [ttl=255 id=34771 iplen=56 ]
+        SENT (1.9160s) TCP 10.133.35.149:56061 > 10.133.35.143:80 S ttl=64 id=34771 iplen=40  seq=446419565 win=1480 
+        RCVD (1.9163s) TCP 10.133.35.143:80 > 10.133.35.149:56061 RA ttl=64 id=42917 iplen=40  seq=0 win=0 
+         
+        Statistics for host 10.133.35.158:
+         |  Probes Sent: 10 | Rcvd: 10 | Lost: 0  (0.00%)
+         |_ Max rtt: 0.308ms | Min rtt: 0.215ms | Avg rtt: 0.259ms
+        Statistics for host 10.133.35.143:
+         |  Probes Sent: 10 | Rcvd: 10 | Lost: 0  (0.00%)
+         |_ Max rtt: 2.755ms | Min rtt: 0.249ms | Avg rtt: 0.539ms
+        Raw packets sent: 20 (800B) | Rcvd: 20 (1.090KB) | Lost: 0 (0.00%)
+        Nping done: 2 IP addresses pinged in 1.95 seconds
+    nping8_test.go:57: Nping traffic generation for UDP and TCP completed.
+--- PASS: TestConnectToRouter18 (17.77s)
+PASS
+ok  	command-line-arguments	17.775s
